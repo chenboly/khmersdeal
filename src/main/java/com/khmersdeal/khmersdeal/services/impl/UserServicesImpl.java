@@ -23,4 +23,14 @@ public class UserServicesImpl implements UserServices {
     public int save(User user) {
         return this.userRepository.save(user);
     }
+
+    @Override
+    public int update(User user) {
+        return this.userRepository.update(user);
+    }
+
+    @Override
+    public int delete(Integer id) {
+        return this.userRepository.delete(id);
+    }
 }

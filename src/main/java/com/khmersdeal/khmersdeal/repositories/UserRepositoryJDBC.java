@@ -2,7 +2,6 @@ package com.khmersdeal.khmersdeal.repositories;
 
 import com.khmersdeal.khmersdeal.models.User;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -13,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class UserRepository {
+public class UserRepositoryJDBC {
     private DataSource dataSource;
 
-    public UserRepository(DataSource dataSource) {
+    public UserRepositoryJDBC(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
