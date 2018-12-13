@@ -1,7 +1,7 @@
 package com.khmersdeal.khmersdeal.models;
 
 import java.sql.Timestamp;
-import java.util.List;
+
 
 public class Store {
     private Integer id;
@@ -9,20 +9,20 @@ public class Store {
     private String image_url;
     private String contact;
     private String website;
-    private List<User> users;
+    private User user;
     private boolean status;
     private Timestamp createdAt;
 
     public Store() {
     }
 
-    public Store(Integer id, String name, String image_url, String contact, String website, List<User> users, boolean status, Timestamp createdAt) {
+    public Store(Integer id, String name, String image_url, String contact, String website, User user, boolean status, Timestamp createdAt) {
         this.id = id;
         this.name = name;
         this.image_url = image_url;
         this.contact = contact;
         this.website = website;
-        this.users = users;
+        this.user = user;
         this.status = status;
         this.createdAt = createdAt;
     }
@@ -67,12 +67,12 @@ public class Store {
         this.website = website;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public boolean isStatus() {
@@ -99,7 +99,7 @@ public class Store {
                 ", image_url='" + image_url + '\'' +
                 ", contact='" + contact + '\'' +
                 ", website='" + website + '\'' +
-                ", users=" + users +
+                ", user=" + user +
                 ", status=" + status +
                 ", createdAt=" + createdAt +
                 '}';

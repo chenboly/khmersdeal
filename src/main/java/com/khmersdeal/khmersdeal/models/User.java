@@ -1,6 +1,7 @@
 package com.khmersdeal.khmersdeal.models;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class User {
     private Integer id;
@@ -10,13 +11,14 @@ public class User {
     private String image_url;
     private String phone;
     private String email;
+    private List<Store> stores;
     private boolean status;
     private Timestamp createdAt;
 
     public User() {
     }
 
-    public User(Integer id, String fullname, String username, String password, String image_url, String phone, String email, boolean status, Timestamp createdAt) {
+    public User(Integer id, String fullname, String username, String password, String image_url, String phone, String email, List<Store> stores, boolean status, Timestamp createdAt) {
         this.id = id;
         this.fullname = fullname;
         this.username = username;
@@ -24,6 +26,7 @@ public class User {
         this.image_url = image_url;
         this.phone = phone;
         this.email = email;
+        this.stores = stores;
         this.status = status;
         this.createdAt = createdAt;
     }
@@ -84,6 +87,14 @@ public class User {
         this.email = email;
     }
 
+    public List<Store> getStores() {
+        return stores;
+    }
+
+    public void setStores(List<Store> stores) {
+        this.stores = stores;
+    }
+
     public boolean isStatus() {
         return status;
     }
@@ -110,6 +121,7 @@ public class User {
                 ", image_url='" + image_url + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
+                ", stores=" + stores +
                 ", status=" + status +
                 ", createdAt=" + createdAt +
                 '}';
