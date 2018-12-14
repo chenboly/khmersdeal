@@ -2,9 +2,7 @@ package com.khmersdeal.khmersdeal.repositories;
 
 import com.khmersdeal.khmersdeal.models.Store;
 import com.khmersdeal.khmersdeal.repositories.providers.StoreProvider;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,4 +18,13 @@ public interface StoreRepository {
 
     })
     List<Store> getAllStores();
+
+    @InsertProvider(type = StoreProvider.class, method = "saveStoreProvider")
+    int save(Store store);
+
+    @UpdateProvider(type = StoreProvider.class, method = "updateStoreProvider")
+    int update(@Param("p_store") Store store);
+
+    @DeleteProvider(type = StoreProvider.class, method = "deleteStoreProvider")
+    int delete(@Param("id") Integer id);
 }

@@ -1,5 +1,7 @@
 package com.khmersdeal.khmersdeal.repositories.providers;
 
+import com.khmersdeal.khmersdeal.models.Store;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
 import javax.management.ObjectName;
@@ -15,7 +17,34 @@ public class StoreProvider {
             ORDER_BY("ds.id");
         }}.toString();
     }
+
+    public String saveStoreProvider(Store store){
+        return new SQL(){{
+            INSERT_INTO("d_store");
+            VALUES("name", "#{name}");
+            VALUES("image_url", "#{image_url}");
+            VALUES("contact","#{contact}");
+            VALUES("website","#{website}");
+        }}.toString();
+    }
+    public String updateStoreProvider(Store store){
+        return new SQL(){{
+            UPDATE("d_store");
+            SET("name=#{name}",
+                    "image_url=#{image_url}",
+                    "contact=#{contact}",
+                    "website=#{website}");
+            WHERE("id = #{id}");
+        }}.toString();
+    }
+    public String deleteStoreProvider(@Param("id") Integer id){
+        return new SQL(){{
+            UPDATE("d_store");
+            SET("status = FALSE");
+            WHERE("id = #{id}");
+        }}.toString();
+
+    }
 }
 
-//select *
-//        from d_store inner join d_user du on d_store.user_id = du.id;
+

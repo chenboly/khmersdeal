@@ -18,4 +18,19 @@ public class StoreServiceImpl implements StoreServices {
     public List<Store> getAllStores() {
         return this.storeRepository.getAllStores();
     }
+
+    @Override
+    public int save(Store store) {
+        return this.storeRepository.save(store);
+    }
+
+    @Override
+    public int update(Store store) {
+        return this.storeRepository.update(store);
+    }
+
+    @Override
+    public int delete(Integer id) {
+        return this.storeRepository.delete(id);
+    }
 }
