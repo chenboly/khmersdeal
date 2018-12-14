@@ -27,14 +27,14 @@ public class StoreProvider {
             VALUES("website","#{website}");
         }}.toString();
     }
-    public String updateStoreProvider(Store store){
+    public String updateStoreProvider(@Param("p_store") Store store){
         return new SQL(){{
             UPDATE("d_store");
-            SET("name=#{name}",
-                    "image_url=#{image_url}",
-                    "contact=#{contact}",
-                    "website=#{website}");
-            WHERE("id = #{id}");
+            SET("name=#{p_store.name}",
+                    "image_url=#{p_store.image_url}",
+                    "contact=#{p_store.contact}",
+                    "website=#{p_store.website}");
+            WHERE("id = #{p_store.id}");
         }}.toString();
     }
     public String deleteStoreProvider(@Param("id") Integer id){
