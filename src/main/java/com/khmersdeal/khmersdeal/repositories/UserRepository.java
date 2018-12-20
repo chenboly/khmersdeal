@@ -19,7 +19,7 @@ public interface UserRepository {
             @Result(column = "created_at", property = "createdAt"),
             @Result(column = "id" , property = "stores", many = @Many(select = "getAllStoreByUserID"))
     })
-    List<User> getAllUsers();
+    List<User> getAllUsers(String username, String phone);
 
     //get all store by userID
     @Select("SELECT * FROM d_store WHERE user_id = #{id}")

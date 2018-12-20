@@ -18,8 +18,8 @@ public class UserRestController {
     }
 
     @GetMapping("")
-    public List<User> getAllUsers(){
-        return this.userServices.getAllUsers();
+    public List<User> getAllUsers(String username, String phone){
+        return this.userServices.getAllUsers(username, phone);
     }
 
     @PostMapping("")

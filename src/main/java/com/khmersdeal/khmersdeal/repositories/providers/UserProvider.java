@@ -5,12 +5,21 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class UserProvider {
 
-    public String getAllUsersProvider(){
+    public String getAllUsersProvider(String username, String phone){
         return new SQL(){{
             SELECT("*");
-            FROM("d_user");
-            WHERE("status IS TRUE");
-            ORDER_BY("id");
+            FROM("d_user du");
+            if (username != null && !username.isEmpty()){
+                System.out.println("ok check");
+                WHERE("du.username ilike '%' || #{username} || '%' ");
+            }
+
+            if(phone !=null && !phone.isEmpty()){
+                System.out.println("phone check");
+                WHERE("du.phone ilike '%' || #{phone} || '%' ");
+            }
+            WHERE("du.status IS TRUE");
+            ORDER_BY("du.id");
         }}.toString();
     }
 
