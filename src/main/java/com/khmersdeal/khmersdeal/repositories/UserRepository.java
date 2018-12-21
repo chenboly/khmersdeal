@@ -17,15 +17,27 @@ public interface UserRepository {
     @Results({
             @Result(column = "id", property = "id"),
             @Result(column = "created_at", property = "createdAt"),
+            @Result(column = "active_status", property = "activeStatus"),
             @Result(column = "id" , property = "stores", many = @Many(select = "getAllStoreByUserID"))
     })
     List<User> getAllUsers(String username, String phone);
+
+//    get one user by id
+
+    @SelectProvider(type = UserProvider.class, method = "getOneUserByIdProvider")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "created_at", property = "createdAt"),
+            @Result(column = "active_status", property = "activeStatus")
+    })
+    User getOneUser(Integer id);
 
     //get all store by userID
     @Select("SELECT * FROM d_store WHERE user_id = #{id}")
 //  mapping the different fields name between POJO class and database field name
     @Results({
-            @Result(column = "created_at", property = "createdAt")
+            @Result(column = "created_at", property = "createdAt"),
+            @Result(column = "active_status", property = "activeStatus")
     })
     List<Store> getAllStoreByUserID(Integer id);
 
@@ -33,12 +45,12 @@ public interface UserRepository {
 //    @Insert("INSERT INTO d_user(fullname, username, password, image_url, phone, email)" +
 //            "VALUES (#{fullname},#{username},md5(#{password}),#{image_url},#{phone},#{email})")
     @InsertProvider(type = UserProvider.class, method = "saveUsersProvider")
-    int save(User user);
+    boolean save(User user);
 
 //    @Update("UPDATE d_user SET fullname = #{p_user.fullname}, username = #{p_user.username}, password = md5(#{p_user.password})," +
 //            "image_url = #{p_user.image_url}, phone = #{p_user.phone}, email = #{p_user.email} WHERE id = #{p_user.id}")
     @UpdateProvider(type = UserProvider.class, method = "updateUsersProvider")
-    int update(@Param("p_user") User user);
+    boolean update(@Param("p_user") User user);
 
 
 //    @Delete("UPDATE d_user SET status = FALSE WHERE id=#{id}")

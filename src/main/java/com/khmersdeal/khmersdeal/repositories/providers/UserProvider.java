@@ -23,6 +23,16 @@ public class UserProvider {
         }}.toString();
     }
 
+    public String getOneUserByIdProvider(Integer id){
+        return new SQL(){{
+            SELECT("*");
+            FROM("d_user");
+            WHERE("id = #{id}");
+
+        }}.toString();
+    }
+
+
     public String saveUsersProvider(User user){
         return new SQL(){{
             INSERT_INTO("d_user");
@@ -40,11 +50,12 @@ public class UserProvider {
         return new SQL(){{
             UPDATE("d_user");
             SET("fullname = #{p_user.fullname}",
-                    "username = #{p_user.username}",
-                    "password = md5(#{p_user.password})",
-                    "image_url = #{p_user.image_url}",
+//                    "username = #{p_user.username}",
+//                    "password = md5(#{p_user.password})",
+//                    "image_url = #{p_user.image_url}",
                     "phone = #{p_user.phone}",
-                    "email = #{p_user.email}");
+                    "email = #{p_user.email}",
+                    "active_status = #{p_user.activeStatus}");
             WHERE("id = #{p_user.id}");
         }}.toString();
     }

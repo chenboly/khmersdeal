@@ -51,7 +51,7 @@
                                     <th>Image</th>
                                     <th>Phone</th>
                                     <th>Email</th>
-                                    <th>Status</th>
+                                    <th>Active Status</th>
                                     <th>Created Date</th>
                                     <th>Action</th>
                                 </tr>
@@ -63,7 +63,15 @@
                                     <td th:text="*{image_url}"></td>
                                     <td th:text="*{phone}"></td>
                                     <td th:text="*{email}"></td>
-                                    <td><span class="label label-success" th:text="*{status}"></span></td>
+                                    <td>
+                                        <th:block th:if="*{activeStatus}">
+                                            <span class="label label-success">Active</span>
+                                        </th:block>
+                                        <th:block th:unless="*{activeStatus}">
+                                            <span class="label label-danger">Inactive</span>
+                                        </th:block>
+
+                                    </td>
                                     <td th:text="*{#dates.format(createdAt, 'yyyy-MM-dd hh:mm:s a')}"></td>
                                     <td>
                                         <button th:attr="data-id=*{id}" type="button" data-toggle="modal" data-target="#modal-default" class="btn btn-primary btn-xs btn-update">
@@ -91,58 +99,59 @@
                     <div class="modal-body">
                         <div class="box box-info">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Horizontal Form</h3>
+                                <h3 class="box-title">Update User Info</h3>
                             </div>
                         </div>
-                        <div class="container">
-                            <div class="row" style="background-color: red">
-                                <div class="col-sm-6" style="background-color: blue">
-                                    <p>asdad</p>
+                        <div class="row">
+                                <div class="col-sm-6">
+                                    <input class="hidden" id="user-id">
+                                    <div class="form-group">
+                                        <div>
+                                            <input type="text" class="form-control" id="fullName" placeholder="Full Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div>
+                                            <input type="text" class="form-control" id="phoneNumber" placeholder="Phone">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div>
+                                            <input type="text" class="form-control" id="email" placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optionsRadios" id="active" value="active">
+                                                Active
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optionsRadios" id="inactive" value="inactive">
+                                                Inactive
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <img src="http://placehold.it/150x130" alt="...">
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-success btn-xl">Upload</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row" style="background-color: #0a0a0a">
-                                <!--<div class="col-sm-6" style="background-color: #0b97c4">-->
-                                    <!--<p>asdad</p>-->
-                                <!--</div>-->
-                            </div>
-
                         </div>
-                        <!--<div class="row">-->
-                                <!--<div class="col-sm-6">-->
-                                    <!--<div class="form-group">-->
-                                        <!--<div>-->
-                                            <!--<input type="email" class="form-control" id="inputEmail3" placeholder="Email">-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                    <!--<div class="form-group">-->
-                                        <!--<div>-->
-                                            <!--<input type="email" class="form-control" id="inputEmail3" placeholder="Email">-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                    <!--<div class="form-group">-->
-                                        <!--<div>-->
-                                            <!--<input type="email" class="form-control" id="inputEmail3" placeholder="Email">-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--<div class="col-sm-6">-->
-                                <!--<div class="row">-->
-                                    <!--<div>-->
-                                        <!--<img src="http://placehold.it/150x130" alt="...">-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="row">-->
-                                    <!--<div>-->
-                                        <!--<button type="button" class="btn btn-success btn-xs">Success</button>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-
-                        <!--</div>-->
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary btn-update-submit">Save changes</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -162,16 +171,74 @@
                 window.location='/admin/users/all?username=' + text_to_search;
             }
             window.location='/admin/users/all?phone=' + text_to_search;
-
         });
-
         $('.btn-update').on('click', function () {
             var data_id = ($(this).attr('data-id'));
-            $('.modal').modal.show();
-            
-        });
+            // $('.modal').modal.show();
+            $('.modal').show();
 
+            $.ajax({
+                url: '/api/v1/users/' + data_id,
+                type: 'GET',
+                connectType: 'application/json',
+                success: function (response) {
+                    console.log(response);
+                    $('#user-id').val(response.data.id);
+                    $('#fullName').val(response.data.fullname);
+                    $('#phoneNumber').val(response.data.phone);
+                    $('#email').val(response.data.email);
+                    if(response.data.activeStatus == '1'){
+                        // alert(1);
+                        $('#active').attr('checked', 'checked');
+                    }
+                    else {
+                        // alert(0);
+                        $('#inactive').attr('checked', 'checked');
+                    }
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            });
+        });
+        $('body').on('click','.btn-update-submit', function () {
+            var statusActive = $("input[name='optionsRadios']:checked").val();
+
+            var update_data = {
+                "id":$('#user-id').val(),
+                "fullname":$('#fullName').val(),
+                "phone":$('#phoneNumber').val(),
+                "email":$('#email').val(),
+                "activeStatus":statusActive
+            };
+            $.ajax({
+                url: '/api/v1/users/',
+                type: 'PUT',
+                connectType: 'application/json',
+                data: JSON.stringify(update_data),
+                success: function (response) {
+                    console.log(response);
+                    $('#user-id').val(response.data.id);
+                    $('#fullName').val(response.data.fullname);
+                    $('#phoneNumber').val(response.data.phone);
+                    $('#email').val(response.data.email);
+                    if(response.data.activeStatus == '1'){
+                        // alert(1);
+                        $('#active').attr('checked', 'checked');
+                    }
+                    else {
+                        // alert(0);
+                        $('#inactive').attr('checked', 'checked');
+                    }
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            });
+
+        });
     });
 </script>
+
 </body>
 </html>

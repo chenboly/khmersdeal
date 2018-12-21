@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -22,20 +24,41 @@ public class UserRestController {
         return this.userServices.getAllUsers(username, phone);
     }
 
-    @PostMapping("")
-    public String save(@RequestBody User user){
-        int status = this.userServices.save(user);
-        if(status > 0){
-            return "Save user successfully!!";
-        }
-        return "Save user failed!!";
+//    @GetMapping("/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> getOneUser (@PathVariable("id") Integer id){
+        Map<String, Object> response = new HashMap<>();
+        User user = this.userServices.getOneUser(id);
+        response.put("data", user);
+        response.put("message", "Get User Successfully");
+        response.put("status", true);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+
     }
+
+    @PostMapping("")
+    public ResponseEntity<Map<String, Object>> save(@RequestBody User user) {
+        Map<String, Object> response = new HashMap<>();
+        boolean status = this.userServices.save(user);
+        if (status) {
+            response.put("message", "Save user successfully!!");
+            response.put("user", user);
+            response.put("status", true);
+            return ResponseEntity.ok(response);
+        }
+        response.put("message", "Save user failed!!");
+        response.put("status", false);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
     @PutMapping("")
-    public ResponseEntity<String> update(@RequestBody User user){
-        int status = this.userServices.update(user);
-        if(status > 0){
-            return ResponseEntity.ok("Update User Successfully!!");
-        }return new ResponseEntity<>("Update User Failed!!", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Map<String, Object>> update(@RequestBody User user){
+        Map<String, Object> response = new HashMap<>();
+        boolean status = this.userServices.update(user);
+        if(status){
+            response.put("message","Update User Successfully!!");
+            response.put("status", true);
+        }return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

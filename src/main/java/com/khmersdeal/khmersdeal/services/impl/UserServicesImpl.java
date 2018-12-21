@@ -20,12 +20,17 @@ public class UserServicesImpl implements UserServices {
     }
 
     @Override
-    public int save(User user) {
+    public User getOneUser(Integer id) {
+        return this.userRepository.getOneUser(id);
+    }
+
+    @Override
+    public boolean save(User user) {
         return this.userRepository.save(user);
     }
 
     @Override
-    public int update(User user) {
+    public boolean update(User user) {
         return this.userRepository.update(user);
     }
 

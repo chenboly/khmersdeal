@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface UserServices {
     List<User> getAllUsers(String username, String phone);
-    int save (User user);
-    int update (User user);
+    User getOneUser (Integer id);
+    boolean save (User user);
+    boolean update (User user);
     int delete(Integer id);
 }

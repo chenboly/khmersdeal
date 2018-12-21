@@ -13,12 +13,13 @@ public class User {
     private String email;
     private List<Store> stores;
     private boolean status;
+    private Integer activeStatus;
     private Timestamp createdAt;
 
     public User() {
     }
 
-    public User(Integer id, String fullname, String username, String password, String image_url, String phone, String email, List<Store> stores, boolean status, Timestamp createdAt) {
+    public User(Integer id, String fullname, String username, String password, String image_url, String phone, String email, List<Store> stores, boolean status, Integer activeStatus, Timestamp createdAt) {
         this.id = id;
         this.fullname = fullname;
         this.username = username;
@@ -28,6 +29,7 @@ public class User {
         this.email = email;
         this.stores = stores;
         this.status = status;
+        this.activeStatus = activeStatus;
         this.createdAt = createdAt;
     }
 
@@ -103,6 +105,14 @@ public class User {
         this.status = status;
     }
 
+    public Integer getActiveStatus() {
+        return activeStatus;
+    }
+
+    public void setActiveStatus(Integer activeStatus) {
+        this.activeStatus = activeStatus;
+    }
+
     public Timestamp getCreatedAt() {
         return createdAt;
     }
@@ -123,6 +133,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", stores=" + stores +
                 ", status=" + status +
+                ", activeStatus=" + activeStatus +
                 ", createdAt=" + createdAt +
                 '}';
     }
