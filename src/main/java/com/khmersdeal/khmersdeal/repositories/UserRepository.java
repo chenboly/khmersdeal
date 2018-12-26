@@ -20,7 +20,7 @@ public interface UserRepository {
             @Result(column = "active_status", property = "activeStatus"),
             @Result(column = "id" , property = "stores", many = @Many(select = "getAllStoreByUserID"))
     })
-    List<User> getAllUsers(String username, String phone);
+    List<User> getAllUsers(String username);
 
 //    get one user by id
 

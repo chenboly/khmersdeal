@@ -20,8 +20,8 @@ public class UserControllers {
     }
 
     @GetMapping("/all")
-    public String showAllusers(@RequestParam(required = false) String username, String phone, Model model){
-        List<User> userList = this.userServices.getAllUsers(username, phone);
+    public String showAllusers(@RequestParam(required = false) String username, Model model){
+        List<User> userList = this.userServices.getAllUsers(username);
         model.addAttribute("userList", userList);
         return "/admin/users/all-users";
     }

@@ -20,8 +20,8 @@ public class UserRestController {
     }
 
     @GetMapping("")
-    public List<User> getAllUsers(String username, String phone){
-        return this.userServices.getAllUsers(username, phone);
+    public List<User> getAllUsers(String username){
+        return this.userServices.getAllUsers(username);
     }
 
 //    @GetMapping("/{id}")

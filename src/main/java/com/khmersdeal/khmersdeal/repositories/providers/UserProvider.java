@@ -5,7 +5,7 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class UserProvider {
 
-    public String getAllUsersProvider(String username, String phone){
+    public String getAllUsersProvider(String username){
         return new SQL(){{
             SELECT("*");
             FROM("d_user du");
@@ -14,10 +14,6 @@ public class UserProvider {
                 WHERE("du.username ilike '%' || #{username} || '%' ");
             }
 
-            if(phone !=null && !phone.isEmpty()){
-                System.out.println("phone check");
-                WHERE("du.phone ilike '%' || #{phone} || '%' ");
-            }
             WHERE("du.status IS TRUE");
             ORDER_BY("du.id");
         }}.toString();
