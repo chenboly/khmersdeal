@@ -82,8 +82,7 @@
                                         </a>
 
                                     </td>
-                                    <!--<td><span class="label label-success">Approved</span></td>-->
-                                    <!--<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>-->
+
                                 </tr>
                                 </tbody></table>
                         </div>
@@ -93,7 +92,7 @@
                 </div>
             </div>
         </section>
-        <div class="modal fade in" id="modal-default">
+        <div class="modal fade in" id="modal-update">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
@@ -179,37 +178,14 @@
         $('.btn-update').on('click', function () {
             data_id = ($(this).attr('data-id'));
             console.log(data_id);
-            $('.modal').modal.show();
-            // $.ajax({
-            //     url: '/api/v1/users/' + data_id,
-            //     type: 'GET',
-            //     connectType: 'application/json',
-            //     success: function (response) {
-            //         console.log(response);
-            //         $('#user-id').val(response.data.id);
-            //         $('#fullName').val(response.data.fullname);
-            //         $('#phoneNumber').val(response.data.phone);
-            //         $('#email').val(response.data.email);
-            //         if(response.data.activeStatus == '1'){
-            //             // alert(1);
-            //             $('#active').attr('checked', 'checked');
-            //         }
-            //         else {
-            //             // alert(0);
-            //             $('#inactive').attr('checked', 'checked');
-            //         }
-            //     },
-            //     error: function (error) {
-            //         console.log(error)
-            //     }
-            // });
+            $('#modal-update').modal('show');
         });
 
-        //ajax pass value from table list to modal form
-        $('.modal').on('show.bs.modal', function (e) {
+        //ajax pass value from table list to modal form for update
+        $('#modal-update').on('show.bs.modal', function () {
             $.ajax({
-               url:'/api/v1/users/' + data_id,
-               method: 'GET',
+                url:'/api/v1/users/' + data_id,
+                method: 'GET',
                 contentType:'application/json',
                 success: function (response) {
                    console.log(response);
@@ -227,10 +203,43 @@
                     console.log(response);
                 }
             });
-
         });
 
-    //    TODO Update after data loaded into modal form
+        //ajax update record
+        $('body').on('click', 'btn-update-submit', function () {
+            alert(10000)
+            // var status = $("input[name='optionsRadios']:checked").val();
+            // var userData = {
+            //     id: $('#user-id').val(),
+            //     fullName: $('#user-fullName').val(),
+            //     phone: $('#user-phoneNumber').val(),
+            //     email: $('#user-email').val(),
+            //     status:status
+            // };
+            // $.ajax({
+            //     url:'/api/v1/users/',
+            //     method:'PUT',
+            //     contentType:'application/json',
+            //     data: JSON.stringify(userData),
+            //     success: function (response) {
+            //         $('#modal-update').modal('hide');
+            //         window.location.reload();
+            //         console.log(response);
+            //         $('#user-id').val(response.data.id);
+            //         $('#user-fullName').val(response.data.fullname);
+            //         $('#user-phoneNumber').val(response.data.phone);
+            //         $('#user-email').val(response.data.email);
+            //         if (response.data.status == false){
+            //             $('#inactive').attr('checked', 'checked');
+            //         } else {
+            //             $('#active').attr('checked', 'checked');
+            //         }
+            //     },
+            //     error: function (error) {
+            //         console.log(error)
+            //     }
+            // });
+        })
     });
 </script>
 

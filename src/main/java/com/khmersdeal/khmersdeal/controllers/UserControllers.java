@@ -21,8 +21,13 @@ public class UserControllers {
 
     @GetMapping("/all")
     public String showAllusers(@RequestParam(required = false) String username, Model model){
-        List<User> userList = this.userServices.getAllUsers(username);
-        model.addAttribute("userList", userList);
+        List<User> users = this.userServices.getAllUsers(username);
+        model.addAttribute("userList", users);
         return "/admin/users/all-users";
     }
+
+
+
+
+
 }
