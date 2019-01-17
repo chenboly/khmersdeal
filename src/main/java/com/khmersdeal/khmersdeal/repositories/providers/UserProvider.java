@@ -29,7 +29,7 @@ public class UserProvider {
     }
 
 
-    public String saveUsersProvider(User user){
+    public String saveUsersProvider(@Param("p_user") User user){
         return new SQL(){{
             INSERT_INTO("d_user");
             VALUES ("fullname", "#{fullname}");
@@ -42,17 +42,14 @@ public class UserProvider {
     }
 
 
-    public String updateUsersProvider(@Param("p_user") User user){
+    public String updateUsersProvider(User user){
         return new SQL(){{
             UPDATE("d_user");
-            SET("fullname = #{p_user.fullname}",
-//                    "username = #{p_user.username}",
-//                    "password = md5(#{p_user.password})",
-//                    "image_url = #{p_user.image_url}",
-                    "phone = #{p_user.phone}",
-                    "email = #{p_user.email}",
-                    "active_status = #{p_user.activeStatus}");
-            WHERE("id = #{p_user.id}");
+            SET("fullname = #{fullname}");
+            SET("phone = #{phone}");
+            SET("email = #{email}");
+            SET("active_status = #{activeStatus}");
+            WHERE("id = #{id}");
         }}.toString();
     }
 

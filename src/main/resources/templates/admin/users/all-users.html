@@ -206,40 +206,39 @@
         });
 
         //ajax update record
-        $('body').on('click', 'btn-update-submit', function () {
-            alert(10000)
-            // var status = $("input[name='optionsRadios']:checked").val();
-            // var userData = {
-            //     id: $('#user-id').val(),
-            //     fullName: $('#user-fullName').val(),
-            //     phone: $('#user-phoneNumber').val(),
-            //     email: $('#user-email').val(),
-            //     status:status
-            // };
-            // $.ajax({
-            //     url:'/api/v1/users/',
-            //     method:'PUT',
-            //     contentType:'application/json',
-            //     data: JSON.stringify(userData),
-            //     success: function (response) {
-            //         $('#modal-update').modal('hide');
-            //         window.location.reload();
-            //         console.log(response);
-            //         $('#user-id').val(response.data.id);
-            //         $('#user-fullName').val(response.data.fullname);
-            //         $('#user-phoneNumber').val(response.data.phone);
-            //         $('#user-email').val(response.data.email);
-            //         if (response.data.status == false){
-            //             $('#inactive').attr('checked', 'checked');
-            //         } else {
-            //             $('#active').attr('checked', 'checked');
-            //         }
-            //     },
-            //     error: function (error) {
-            //         console.log(error)
-            //     }
-            // });
-        })
+        $('body').on('click', '.btn-update-submit', function () {
+           var activeStatus = $("input[name='optionsRadios']:checked").val();
+           var userData = {
+             id: $('#user-id').val(),
+             fullname: $('#user-fullName').val(),
+             phone: $('#user-phoneNumber').val(),
+             email: $('#user-email').val(),
+             activeStatus: activeStatus
+           };
+           $.ajax({
+               url: '/api/v1/users/',
+               method: 'PUT',
+               contentType: 'application/json',
+               data: JSON.stringify(userData),
+               success: function (response) {
+                   $('#modal-update').modal('hide');
+                   window.location.reload();
+                   $('#user-id').val(response.data.id);
+                   $('#user-fullName').val(response.data.fullname);
+                   $('#user-phoneNumber').val(response.data.phone);
+                   $('#user-email').val(response.data.email);
+                   if(response.data.activeStatus == 0){
+                       $('#inactive').attr('checked', 'checked');
+
+                   }else {
+                       $('#active').attr('checked', 'checked');
+                   }
+               },
+               error: function (error) {
+                   console.log(error);
+               }
+           });
+        });
     });
 </script>
 

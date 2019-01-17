@@ -50,8 +50,8 @@ public interface UserRepository {
 //    @Update("UPDATE d_user SET fullname = #{p_user.fullname}, username = #{p_user.username}, password = md5(#{p_user.password})," +
 //            "image_url = #{p_user.image_url}, phone = #{p_user.phone}, email = #{p_user.email} WHERE id = #{p_user.id}")
     @UpdateProvider(type = UserProvider.class, method = "updateUsersProvider")
-    boolean update(@Param("p_user") User user);
-
+//    boolean update(@Param("p_user") User user);
+    boolean update (User user);
 
 //    @Delete("UPDATE d_user SET status = FALSE WHERE id=#{id}")
     @DeleteProvider(type = UserProvider.class, method = "deleteUsersProvider")
