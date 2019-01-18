@@ -2,6 +2,7 @@ package com.khmersdeal.khmersdeal.repositories;
 import com.khmersdeal.khmersdeal.models.Store;
 import com.khmersdeal.khmersdeal.models.User;
 import com.khmersdeal.khmersdeal.repositories.providers.UserProvider;
+import com.khmersdeal.khmersdeal.utilities.Paginate;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import java.util.List;
@@ -21,6 +22,24 @@ public interface UserRepository {
             @Result(column = "id" , property = "stores", many = @Many(select = "getAllStoreByUserID"))
     })
     List<User> getAllUsers(String username);
+
+    //Get all for Pagination
+    @SelectProvider(type = UserProvider.class, method = "getAllUsersPaginateProvider")
+
+//  mapping the different fields name from database field name and class field name (only different field name)
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "created_at", property = "createdAt"),
+            @Result(column = "active_status", property = "activeStatus"),
+            @Result(column = "id" , property = "stores", many = @Many(select = "getAllStoreByUserID"))
+    })
+    List<User> getAllUsersPaginate(@Param("username") String username, @Param("paginate") Paginate paginate);
+
+    //Count all record for paginate and number of search by username
+
+    @Select("SELECT count(*) FROM d_user WHERE username ilike '%' || #{usernme} || '%'")
+    int count(String username);
+
 
 //    get one user by id
 

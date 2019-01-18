@@ -1,5 +1,6 @@
 package com.khmersdeal.khmersdeal.repositories.providers;
 import com.khmersdeal.khmersdeal.models.User;
+import com.khmersdeal.khmersdeal.utilities.Paginate;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -16,6 +17,18 @@ public class UserProvider {
 
             WHERE("du.status IS TRUE");
             ORDER_BY("du.id");
+        }}.toString();
+    }
+
+    public String getAllUsersPaginateProvider(@Param("username") String username, @Param("paginate") Paginate paginate){
+        return new SQL(){{
+            SELECT("*");
+            FROM("d_user du");
+            if (username != null && !username.isEmpty()){
+                WHERE("du.username ilike '%' || #{username} || '%' ");
+            }
+            WHERE("du.status IS TRUE");
+            ORDER_BY("du.id desc LIMIT #{paginate.limit} OFFSET #{paginate.offset}");
         }}.toString();
     }
 

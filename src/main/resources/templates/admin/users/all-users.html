@@ -11,7 +11,6 @@
         <section class="content-header">
             <h1>
                 List all users
-                <small>Control panel</small>
             </h1>
             <ol class="breadcrumb">
                 <div style="float: right">
@@ -87,6 +86,17 @@
                                 </tbody></table>
                         </div>
                         <!-- /.box-body -->
+                        <div class="box-footer clearfix">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                <li th:classappend="${pagination.page == 1 ? 'disabled' : ''}"><a th:href="@{/admin/users/all/paginate(page=1, username=${usernameFilter})}">First</a></li>
+                                <li th:classappend="${pagination.page == 1 ? 'disabled' : ''}"><a th:href="@{/admin/users/all/paginate(page=${pagination.previousPage}, username=${usernameFilter})}">«</a></li>
+                                <li th:classappend="${pagination.page==i} ? 'active' : ''" th:each="i:${#numbers.sequence(pagination.startPage, pagination.endPage)}">
+                                    <a th:text="${i}" th:href="@{/admin/users/all/paginate(page=${i}, username=${usernameFilter})}">1</a>
+                                </li>
+                                <li th:classappend="${pagination.page == pagination.nextPage ? 'disabled' : ''}"><a th:href="@{/admin/users/all/paginate(page=${pagination.nextPage}, username=${usernameFilter})}">»</a></li>
+                                <li th:classappend="${pagination.page == pagination.totalPages ? 'disabled' : ''}"><a th:href="@{/admin/users/all/paginate(page=${pagination.totalPages}, username=${usernameFilter})}">Last</a></li>
+                            </ul>
+                        </div>
                     </div>
                     <!-- /.box -->
                 </div>
@@ -165,12 +175,12 @@
         $('#btn-search-user').on('click', function () {
             var text_to_search = $('#table-search').val();
             if (text_to_search == ''){
-                window.location='/admin/users/all';
+                window.location='/admin/users/all/paginate';
             }
             else {
-                window.location='/admin/users/all?username=' + text_to_search;
+                window.location='/admin/users/all/paginate?username=' + text_to_search;
             }
-            window.location='/admin/users/all?username=' + text_to_search;
+            // window.location='/admin/users/all/paginate?username=' + text_to_search;
         });
 
         //get id once click on btn-update

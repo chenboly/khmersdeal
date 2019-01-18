@@ -1,13 +1,12 @@
 package com.khmersdeal.khmersdeal.models;
-
 import java.sql.Timestamp;
-
-
 public class Store {
     private Integer id;
     private String name;
     private String image_url;
-    private String contact;
+    private String phone;
+    private String email;
+    private String address;
     private String website;
     private User user;
     private boolean status;
@@ -16,11 +15,13 @@ public class Store {
     public Store() {
     }
 
-    public Store(Integer id, String name, String image_url, String contact, String website, User user, boolean status, Timestamp createdAt) {
+    public Store(Integer id, String name, String image_url, String phone, String email, String address, String website, User user, boolean status, Timestamp createdAt) {
         this.id = id;
         this.name = name;
         this.image_url = image_url;
-        this.contact = contact;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
         this.website = website;
         this.user = user;
         this.status = status;
@@ -51,12 +52,28 @@ public class Store {
         this.image_url = image_url;
     }
 
-    public String getContact() {
-        return contact;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getWebsite() {
@@ -97,7 +114,9 @@ public class Store {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", image_url='" + image_url + '\'' +
-                ", contact='" + contact + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
                 ", website='" + website + '\'' +
                 ", user=" + user +
                 ", status=" + status +

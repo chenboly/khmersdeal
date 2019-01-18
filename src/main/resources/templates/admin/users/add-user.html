@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layouts/master}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="content-wrapper" layout:fragment="content">
+        <section class="content-header">
+            <h1>
+                Add User
+            </h1>
+            <ol class="breadcrumb">
+                <div style="float: right">
+                    <button type="button" class="btn btn-primary btn-sm">
+                        <i class="fa fa-plus">Add New</i>
+                    </button>
+                </div>
+            </ol>
+
+        </section>
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Quick Example</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form role="form" action="/admin/users/add/submit" method="post" enctype="multipart/form-data">
+                            <div class="box-body">
+                                <div class="form-group col-md-4" >
+                                    <input th:field="${user.fullname}" type="text" class="form-control" id="fullname" placeholder="Full Name">
+                                    <br>
+                                    <input type="text" class="form-control" id="username" placeholder="Username">
+                                    <br>
+                                    <input type="password" class="form-control" id="password" placeholder="Password">
+                                    <br>
+                                    <input type="text" class="form-control" id="phone" placeholder="Phone Number">
+                                    <br>
+                                    <input type="email" class="form-control" id="email" placeholder="Email">
+                                    <br>
+                                    <label>Upload User Photo</label>
+                                    <input type="file" id="userPhotoUpload">
+                                </div>
+                                <div>
+                                    <h4>What is Lorem Ipsum?</h4>
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer">
+                                <div class="form-group col-md-4">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+<script layout:fragment="script">
+
+    $(document).ready(function () {
+
+    });
+</script>
+
+</body>
+</html>
