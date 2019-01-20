@@ -13,13 +13,13 @@ public class User {
     private String email;
     private List<Store> stores;
     private boolean status;
-    private Integer activeStatus;
+    private boolean activeStatus;
     private Timestamp createdAt;
 
     public User() {
     }
 
-    public User(Integer id, String fullname, String username, String password, String image_url, String phone, String email, List<Store> stores, boolean status, Integer activeStatus, Timestamp createdAt) {
+    public User(Integer id, String fullname, String username, String password, String image_url, String phone, String email, List<Store> stores, boolean status, boolean activeStatus, Timestamp createdAt) {
         this.id = id;
         this.fullname = fullname;
         this.username = username;
@@ -105,11 +105,11 @@ public class User {
         this.status = status;
     }
 
-    public Integer getActiveStatus() {
+    public boolean isActiveStatus() {
         return activeStatus;
     }
 
-    public void setActiveStatus(Integer activeStatus) {
+    public void setActiveStatus(boolean activeStatus) {
         this.activeStatus = activeStatus;
     }
 
@@ -123,18 +123,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", fullname='" + fullname + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", image_url='" + image_url + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", stores=" + stores +
-                ", status=" + status +
-                ", activeStatus=" + activeStatus +
-                ", createdAt=" + createdAt +
-                '}';
+        return "User{" + "id=" + id + ", fullname='" + fullname + '\'' + ", username='" + username + '\'' + ", password='" + password + '\'' + ", image_url='" + image_url + '\'' + ", phone='" + phone + '\'' + ", email='" + email + '\'' + ", stores=" + stores + ", status=" + status + ", activeStatus=" + activeStatus + ", createdAt=" + createdAt + '}';
     }
 }

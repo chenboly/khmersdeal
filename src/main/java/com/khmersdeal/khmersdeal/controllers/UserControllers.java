@@ -14,19 +14,19 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/users")
 public class UserControllers {
-    private UserServices userServices;
 
+    private UserServices userServices;
     public UserControllers(UserServices userServices) {
         this.userServices = userServices;
     }
 
-    //list all user without pagination
-//    @GetMapping("/all")
-//    public String showAllusers(@RequestParam(required = false) String username, Model model){
-//        List<User> users = this.userServices.getAllUsers(username);
-//        model.addAttribute("userList", users);
-//        return "/admin/users/all-users";
-//    }
+//    list all user without pagination
+    @GetMapping("/all")
+    public String showAllusers(@RequestParam(required = false) String fullname, Model model){
+        List<User> users = this.userServices.getAllUsers(fullname);
+        model.addAttribute("userList", users);
+        return "/admin/users/all-users";
+    }
 
     //list all users with pagination
     @GetMapping("/all/paginate")

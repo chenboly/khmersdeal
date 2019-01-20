@@ -53,7 +53,7 @@ public class Paginate {
     private int draw;
 
     public Paginate() {
-        this(1, 1, 0, 0, 5);
+        this(1, 5, 0, 0, 5);
     }
 
     public Paginate(int page, int limit, int totalCount, int totalPages, int pagesToShow) {

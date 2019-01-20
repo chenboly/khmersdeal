@@ -35,13 +35,13 @@
                                 <div class="form-group col-md-4" >
                                     <input th:field="${user.fullname}" type="text" class="form-control" id="fullname" placeholder="Full Name">
                                     <br>
-                                    <input type="text" class="form-control" id="username" placeholder="Username">
+                                    <input th:field="${user.username}" type="text" class="form-control" id="username" placeholder="Username">
                                     <br>
-                                    <input type="password" class="form-control" id="password" placeholder="Password">
+                                    <input th:field="${user.password}" type="password" class="form-control" id="password" placeholder="Password">
                                     <br>
-                                    <input type="text" class="form-control" id="phone" placeholder="Phone Number">
+                                    <input th:field="${user.phone}" type="text" class="form-control" id="phone" placeholder="Phone Number">
                                     <br>
-                                    <input type="email" class="form-control" id="email" placeholder="Email">
+                                    <input th:field="${user.email}" type="email" class="form-control" id="email" placeholder="Email">
                                     <br>
                                     <label>Upload User Photo</label>
                                     <input type="file" id="userPhotoUpload">
