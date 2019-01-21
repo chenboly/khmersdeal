@@ -45,7 +45,6 @@ public class UserControllers {
     @GetMapping("/add")
     public String showSaveUserForm (Model model){
         model.addAttribute("user", new User());
-
         return "/admin/users/add-user";
     }
 
