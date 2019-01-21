@@ -2,9 +2,12 @@ package com.khmersdeal.khmersdeal.controllers.restcontrollers;
 
 import com.khmersdeal.khmersdeal.models.User;
 import com.khmersdeal.khmersdeal.services.UserServices;
+import com.khmersdeal.khmersdeal.services.impl.FileUploadService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +21,7 @@ public class UserRestController {
     public UserRestController(UserServices userServices) {
         this.userServices = userServices;
     }
+
 
     @GetMapping("")
     public List<User> getAllUsers(String username){
@@ -68,4 +72,7 @@ public class UserRestController {
             return ResponseEntity.ok("Delete User Successfully!!");
         }return new ResponseEntity<>("Delete User Failed!!", HttpStatus.NOT_FOUND);
     }
+
+
+
 }
