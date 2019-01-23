@@ -20,7 +20,7 @@ public interface StoreRepository {
     List<Store> getAllStores();
 
     @InsertProvider(type = StoreProvider.class, method = "saveStoreProvider")
-    int save(Store store);
+    boolean save(Store store);
 
     @UpdateProvider(type = StoreProvider.class, method = "updateStoreProvider")
     int update(@Param("p_store") Store store);

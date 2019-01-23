@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface StoreServices {
     List<Store> getAllStores();
-    int save (Store store);
+    boolean save (Store store);
     int update (Store store);
     int delete (Integer id);
 }

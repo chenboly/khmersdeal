@@ -20,7 +20,7 @@ public class StoreServiceImpl implements StoreServices {
     }
 
     @Override
-    public int save(Store store) {
+    public boolean save(Store store) {
         return this.storeRepository.save(store);
     }
 

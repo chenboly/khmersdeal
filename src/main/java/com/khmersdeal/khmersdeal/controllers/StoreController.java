@@ -1,6 +1,7 @@
 package com.khmersdeal.khmersdeal.controllers;
 
 import com.khmersdeal.khmersdeal.models.Store;
+import com.khmersdeal.khmersdeal.services.StoreServices;
 import com.khmersdeal.khmersdeal.services.UserServices;
 import com.khmersdeal.khmersdeal.services.impl.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class StoreController {
     @Autowired
     private FileUploadService fileUploadService;
 
+    @Autowired
+    private StoreServices storeServices;
+
 
 
     @GetMapping("/add")
@@ -34,9 +38,15 @@ public class StoreController {
     }
 
     @PostMapping("/add/submit")
-    public String AddStoreForm(Store store, @RequestParam("storePhoto")MultipartFile file){
+    public String AddStoreForm(Store store, @RequestParam("photo")MultipartFile file){
         System.out.println(store);
         System.out.println(file);
+        String fileName = this.fileUploadService.upload(file);
+        store.setImage_url(fileName);
+
+        if(this.storeServices.save(store)){
+            System.out.println("Save Success!!");
+        }
         return "redirect:/admin/stores/add";
     }
 

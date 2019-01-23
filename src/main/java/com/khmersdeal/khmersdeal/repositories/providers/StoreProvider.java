@@ -23,8 +23,11 @@ public class StoreProvider {
             INSERT_INTO("d_store");
             VALUES("name", "#{name}");
             VALUES("image_url", "#{image_url}");
-            VALUES("contact","#{contact}");
+            VALUES("phone", "#{phone}");
             VALUES("website","#{website}");
+            VALUES("email","#{email}");
+            VALUES("address", "#{address}");
+            VALUES("user_id", "#{user.id}");
         }}.toString();
     }
     public String updateStoreProvider(@Param("p_store") Store store){

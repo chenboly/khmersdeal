@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/stores")
@@ -22,12 +24,19 @@ public class StoreRestController{
     }
 
     @PostMapping("")
-    public String save(@RequestBody Store store){
-        int status = this.storeServices.save(store);
-        if(status > 0){
-            return "Save store successfully!!";
+    public ResponseEntity<Map<String, Object>> save(@RequestBody Store store){
+        Map<String, Object> response = new HashMap<>();
+        boolean status = this.storeServices.save(store);
+        if(status = true){
+            response.put("message", "Save Store Successfully!!!");
+            response.put("status", true);
+            return ResponseEntity.ok(response);
         }
-        return "Save store failed!!";
+        else {
+            response.put("message", "Save Store Failed!!");
+            response.put("status", false);
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT)
