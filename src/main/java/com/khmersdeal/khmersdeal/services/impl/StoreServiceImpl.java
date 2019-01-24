@@ -3,6 +3,7 @@ package com.khmersdeal.khmersdeal.services.impl;
 import com.khmersdeal.khmersdeal.models.Store;
 import com.khmersdeal.khmersdeal.repositories.StoreRepository;
 import com.khmersdeal.khmersdeal.services.StoreServices;
+import com.khmersdeal.khmersdeal.utilities.Paginate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +16,18 @@ public class StoreServiceImpl implements StoreServices {
     }
 
     @Override
-    public List<Store> getAllStores() {
-        return this.storeRepository.getAllStores();
+    public List<Store> getAllStores(String name) {
+        return this.storeRepository.getAllStores(name);
+    }
+
+    @Override
+    public List<Store> getAllStoresPagination(String name, Paginate paginate) {
+        return this.storeRepository.getAllStoresPagination(name, paginate);
+    }
+
+    @Override
+    public int count(String name) {
+        return this.storeRepository.count(name);
     }
 
     @Override

@@ -6,6 +6,7 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class UserProvider {
 
+    //sql query without pagination
     public String getAllUsersProvider(String username){
         return new SQL(){{
             SELECT("*");
@@ -20,6 +21,7 @@ public class UserProvider {
         }}.toString();
     }
 
+    //sql query with pagination
     public String getAllUsersPaginateProvider(@Param("username") String username, @Param("paginate") Paginate paginate){
         return new SQL(){{
             SELECT("*");

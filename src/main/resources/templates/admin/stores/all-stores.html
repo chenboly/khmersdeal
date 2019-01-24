@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layouts/master}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="content-wrapper" layout:fragment="content">
+    <section class="content-header">
+        <h1>
+            List all stores
+        </h1>
+        <ol class="breadcrumb">
+            <div class="right float">
+                <button type="button" class="btn btn-primary btn-block btn-addNew"><i class="fa fa-plus-square"></i> Add
+                    New
+                </button>
+            </div>
+        </ol>
+
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">User List</h3>
+                    <!--start search box-->
+                        <div class="box-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input th:value="${#httpServletRequest.getParameter('name')}" type="text"
+                                       id="table-search-store" name="table_search" class="form-control pull-right"
+                                       placeholder="Search">
+
+                                <div class="input-group-btn">
+                                    <button type="submit" id="btn-search-store" class="btn btn-default"><i
+                                            class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    <!--end search box-->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover">
+                            <tbody>
+                            <tr>
+                                <th>ID</th>
+                                <th>Store Name</th>
+                                <th>Address</th>
+                                <th>Phone</th>
+                                <th>Website</th>
+                                <th>Email</th>
+                                <th>Owner</th>
+                                <th>Image</th>
+                                <th>Action</th>
+                            </tr>
+                            <tr th:each="store : ${storeList}" th:object="${store}">
+                                <td th:text="*{id}"></td>
+                                <td th:text="*{name}"></td>
+                                <td th:text="*{address}"></td>
+                                <td th:text="*{phone}"></td>
+                                <td th:text="*{website}"></td>
+                                <td th:text="*{email}"></td>
+                                <td th:text="*{user.fullname}"></td>
+                                <td>
+                                    <!--<img style="width: 50px; height: 50px; border: 1px solid red" th:src="|/images/*{image_url}|" alt="">-->
+                                    <img style="width: 50px; height: 50px; border: 1px solid red" th:src="${@environment.getProperty('client.path')('403e2ef2-357c-41c0-8bb6-e2b824d6db14.PNG')}" alt="">
+                                </td>
+                                <td>
+                                    <button type="button" data-toggle="modal"
+                                            data-target="#modal-default" class="btn btn-primary btn-xs btn-update">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <a href="#" type="button" class="btn btn-danger btn-xs">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+
+
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            <li th:classappend="${pagination.page == 1 ? 'disabled' : ''}"><a
+                                    th:href="@{/admin/stores/all/paginate(page=1, name=${nameFilter})}">First</a>
+                            </li>
+                            <li th:classappend="${pagination.page == 1 ? 'disabled' : ''}"><a
+                                    th:href="@{/admin/stores/all/paginate(page=${pagination.previousPage}, name=${nameFilter})}">«</a>
+                            </li>
+                            <li th:classappend="${pagination.page==i} ? 'active' : ''"
+                                th:each="i:${#numbers.sequence(pagination.startPage, pagination.endPage)}">
+                                <a th:text="${i}"
+                                   th:href="@{/admin/stores/all/paginate(page=${i}, name=${nameFilter})}">1</a>
+                            </li>
+                            <li th:classappend="${pagination.page == pagination.nextPage ? 'disabled' : ''}"><a
+                                    th:href="@{/admin/stores/all/paginate(page=${pagination.nextPage}, name=${nameFilter})}">»</a>
+                            </li>
+                            <li th:classappend="${pagination.page == pagination.totalPages ? 'disabled' : ''}"><a
+                                    th:href="@{/admin/stores/all/paginate(page=${pagination.totalPages}, name=${nameFilter})}">Last</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </section>
+    <!--start modal update-->
+    <div class="modal fade in" id="modal-update">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Update User Info</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input class="hidden" id="user-id">
+                            <div class="form-group">
+                                <div>
+                                    <input type="text" class="form-control" id="user-fullName" placeholder="Full Name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <input type="text" class="form-control" id="user-phoneNumber" placeholder="Phone">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <input type="text" class="form-control" id="user-email" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="optionsRadios" id="active" value="true">
+                                        Active
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="optionsRadios" id="inactive" value="false">
+                                        Inactive
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <img src="http://placehold.it/150x130" alt="...">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-success btn-xl">Upload</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-update-submit">Save changes</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!--end modal update-->
+</div>
+
+<script layout:fragment="script">
+
+    $(document).ready(function () {
+        //search jquery
+        $('#btn-search-store').on('click', function () {
+            var text_to_search = $('#table-search-store').val();
+            if (text_to_search == '') {
+                window.location = '/admin/stores/all/paginate';
+            } else {
+                window.location = '/admin/stores/all/paginate?name=' + text_to_search;
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

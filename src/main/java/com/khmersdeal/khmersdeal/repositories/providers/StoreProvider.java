@@ -1,6 +1,7 @@
 package com.khmersdeal.khmersdeal.repositories.providers;
 
 import com.khmersdeal.khmersdeal.models.Store;
+import com.khmersdeal.khmersdeal.utilities.Paginate;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -8,13 +9,37 @@ import javax.management.ObjectName;
 
 public class StoreProvider {
 
-    public String getAllStoresProvider(){
+    //sql query without pagination
+    public String getAllStoresProvider(String name){
         return new SQL(){{
             SELECT("*");
             FROM("d_store ds");
             INNER_JOIN("d_user du ON ds.user_id = du.id");
+            //start for search
+            if (name != null && !name.isEmpty()){
+                System.out.println("ok check");
+                WHERE("ds.name ilike '%' || #{name} || '%' ");
+            }
+            //end for search
             WHERE("ds.status IS TRUE");
             ORDER_BY("ds.id");
+        }}.toString();
+    }
+
+    //sql query with pagination
+    public String getAllStoresPaginateProvider(@Param("name") String name,
+                                               @Param("paginate") Paginate paginate){
+        return new SQL(){{
+            SELECT("*");
+            FROM("d_store ds");
+            INNER_JOIN("d_user du ON ds.user_id = du.id");
+            if (name != null && !name.isEmpty()){
+                System.out.println("ok check");
+                WHERE("ds.name ilike '%' || #{name} || '%' ");
+            }
+            WHERE("ds.status IS TRUE");
+            ORDER_BY("ds.id asc LIMIT #{paginate.limit} OFFSET #{paginate.offset}");
+//            ORDER_BY("ds.id");
         }}.toString();
     }
 

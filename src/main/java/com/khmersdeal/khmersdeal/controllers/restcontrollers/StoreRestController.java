@@ -19,8 +19,8 @@ public class StoreRestController{
         this.storeServices = storeServices;
     }
     @GetMapping("")
-    public List<Store> getAllStores(){
-        return this.storeServices.getAllStores();
+    public List<Store> getAllStores(String name){
+        return this.storeServices.getAllStores(name);
     }
 
     @PostMapping("")
