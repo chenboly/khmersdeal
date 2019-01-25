@@ -9,10 +9,7 @@ import com.khmersdeal.khmersdeal.utilities.Paginate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -32,6 +29,13 @@ public class StoreController {
     private StoreServices storeServices;
 
 
+//    for get one store by ID (for use with thymeleaf)
+//    @GetMapping("/one/{store_id}")
+//    public String showOneStore(@PathVariable("store_id") Integer id, Model model){
+//        Store store = storeServices.getOneStoreById(id);
+//        model.addAttribute("store", store);
+//        return "";
+//    }
     //without pagination
     @GetMapping("/all")
     public String showAllStore(@RequestParam(required = false) String name, Model model){

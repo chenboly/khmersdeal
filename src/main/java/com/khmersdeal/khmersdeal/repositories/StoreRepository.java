@@ -12,6 +12,14 @@ import java.util.List;
 @Repository
 public interface StoreRepository {
 
+
+    @SelectProvider(type = StoreProvider.class, method = "getOneStoreByIdProvider")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "created_at", property = "createdAt")
+    })
+    Store getOneStoreById(Integer id);
+
     // without pagination
     @SelectProvider(type = StoreProvider.class, method = "getAllStoresProvider")
     //  mapping the different fields name from database field name and class field name (only different field name)

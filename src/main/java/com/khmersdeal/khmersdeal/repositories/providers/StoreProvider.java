@@ -9,6 +9,14 @@ import javax.management.ObjectName;
 
 public class StoreProvider {
 
+
+    public String getOneStoreByIdProvider(Integer id){
+        return new SQL(){{
+            SELECT("*");
+            FROM("d_store");
+            WHERE("id = #{id}");
+        }}.toString();
+    }
     //sql query without pagination
     public String getAllStoresProvider(String name){
         return new SQL(){{
@@ -60,11 +68,15 @@ public class StoreProvider {
             UPDATE("d_store");
             SET("name=#{p_store.name}",
                     "image_url=#{p_store.image_url}",
-                    "contact=#{p_store.contact}",
-                    "website=#{p_store.website}");
+                    "phone=#{p_store.phone}",
+                    "email=#{p_store.email}",
+                    "address=#{p_store.address}",
+                    "website=#{p_store.website}",
+                    "user_id=#{p_store.user_id}");
             WHERE("id = #{p_store.id}");
         }}.toString();
     }
+
     public String deleteStoreProvider(@Param("id") Integer id){
         return new SQL(){{
             UPDATE("d_store");

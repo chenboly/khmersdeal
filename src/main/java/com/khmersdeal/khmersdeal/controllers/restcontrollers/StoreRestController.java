@@ -18,9 +18,21 @@ public class StoreRestController{
     public StoreRestController(StoreServices storeServices) {
         this.storeServices = storeServices;
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> getOneStoreById(@PathVariable("id") Integer id){
+        Map<String, Object> respone = new HashMap<>();
+        Store store = this.storeServices.getOneStoreById(id);
+        respone.put("data", store);
+        respone.put("message", "Get Store Detail Successfully");
+        respone.put("status", true);
+        return new ResponseEntity<>(respone, HttpStatus.OK);
+    }
+
     @GetMapping("")
-    public List<Store> getAllStores(String name){
-        return this.storeServices.getAllStores(name);
+    public ResponseEntity<List<Store>> getAllStores(String name){
+        List<Store> stores = this.storeServices.getAllStores(name);
+        return new ResponseEntity<>(stores, HttpStatus.OK);
     }
 
     @PostMapping("")

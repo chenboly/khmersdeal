@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface StoreServices {
+    Store getOneStoreById(Integer id);
     List<Store> getAllStores(String name);
     List<Store> getAllStoresPagination(String name, Paginate paginate);
     int count(String name);

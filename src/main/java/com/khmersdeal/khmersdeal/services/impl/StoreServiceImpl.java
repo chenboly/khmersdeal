@@ -16,6 +16,11 @@ public class StoreServiceImpl implements StoreServices {
     }
 
     @Override
+    public Store getOneStoreById(Integer id) {
+        return this.storeRepository.getOneStoreById(id);
+    }
+
+    @Override
     public List<Store> getAllStores(String name) {
         return this.storeRepository.getAllStores(name);
     }
