@@ -16,7 +16,9 @@ public interface StoreRepository {
     @SelectProvider(type = StoreProvider.class, method = "getOneStoreByIdProvider")
     @Results({
             @Result(column = "id", property = "id"),
-            @Result(column = "created_at", property = "createdAt")
+            @Result(column = "created_at", property = "createdAt"),
+            @Result(column = "user_id", property = "id"),
+            @Result(column = "user_id", property = "user", one = @One(select = "getUserById"))
     })
     Store getOneStoreById(Integer id);
 

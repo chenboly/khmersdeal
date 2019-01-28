@@ -164,7 +164,7 @@
                             <div class="row">
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <img src="http://placehold.it/150x130" alt="...">
+                                        <img id="store-image" src="http://placehold.it/150x130" alt="...">
                                     </div>
                                     <div class="form-group">
                                         <button type="button" class="btn btn-success btn-xl">Upload</button>
@@ -188,6 +188,28 @@
 
 <script layout:fragment="script">
 
+    let users = [];
+
+    function loadUsers(){
+        let u = [];
+        $.ajax({
+            url: '/api/v1/users/',
+            method: 'GET',
+            contentType: 'application/json',
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        }).done(function (responsee) {
+            console.log(responsee);
+            users = responsee;
+        });
+
+
+    }
+
     $(document).ready(function () {
         //search jquery
         $('#btn-search-store').on('click', function () {
@@ -208,20 +230,59 @@
         });
 
         //ajax pass value from table list to modal form for view
-        $('#modal-update').on('show.bs.modal', function () {
+        $('#modal-update').on('shown.bs.modal', function () {
+
             $.ajax({
                 url: '/api/v1/stores/' + storedata_id,
                 method: 'GET',
                 contentType: 'application/json',
                 success: function (response) {
+
+                    loadUsers();
+
                     console.log(response);
+                    $('#store-image').css("width", '20px');
+                    $('#store-image').attr("src", "/images/" + response.data.image_url);
                     $('#store-id').val(response.data.id);
                     $('#store-name').val(response.data.name);
                     $('#store-address').val(response.data.address);
                     $('#store-phone').val(response.data.phone);
                     $('#store-email').val(response.data.email);
                     $('#store-website').val(response.data.website);
-                    $('#store-owner').val(response.data.user.fullname);
+
+
+                    $('#store-owner').empty();
+
+                    $.ajax({
+                        url: '/api/v1/users/',
+                        method: 'GET',
+                        contentType: 'application/json',
+                        success: function (res) {
+
+                            $.each(res, function(index, value){
+                                // console.log(value);
+                                // alert(1000);
+
+                                if (response.data.user.id == value.id) {
+
+                                    $('#store-owner').append(`
+                                        <option selected value="${value.id}">${value.fullname}</option>
+                                    `);
+                                }
+                                else {
+
+                                    $('#store-owner').append(`
+                                        <option value="${value.id}">${value.fullname}</option>
+                                    `);
+                                }
+
+                            });
+
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
                 },
                 error: function (response) {
                     console.log(response);
